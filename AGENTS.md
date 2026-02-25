@@ -153,6 +153,12 @@ curl -X POST http://localhost:3000/api/v1/lookups/seed -H "Authorization: Bearer
 curl -X POST http://localhost:3000/api/v1/categories/seed -H "Authorization: Bearer TOKEN"
 ```
 
+### Gotchas
+- PostgreSQL must be installed first (`apt-get install postgresql postgresql-client`) since it is not pre-installed in the VM.
+- The `pnpm run lint` script uses `"{src,apps,libs,test}/**/*.ts"` which fails on some shells due to brace expansion quoting. Use `npx eslint "src/**/*.ts"` directly if needed.
+- `pnpm install` may warn about ignored build scripts (`@nestjs/core`, `unrs-resolver`). These warnings are safe to ignore — the app works without running those scripts.
+- TypeORM `synchronize: true` is enabled in development, so tables are auto-created on startup — no manual migrations needed.
+
 ### Module Creation Pattern
 1. Entity in `src/modules/{name}/entities/` → must have `tenantId: uuid` + `isDeleted: boolean`
 2. DTO in `src/modules/{name}/dto/` → class-validator decorators + @ApiProperty
