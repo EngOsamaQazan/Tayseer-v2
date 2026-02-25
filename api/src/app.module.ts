@@ -10,6 +10,9 @@ import { CompaniesModule } from './modules/companies/companies.module';
 import { CustomersModule } from './modules/customers/customers.module';
 import { FinancialTransactionsModule } from './modules/financial-transactions/financial-transactions.module';
 import { AuditModule } from './modules/audit/audit.module';
+import { DashboardModule } from './modules/dashboard/dashboard.module';
+import { ReportsModule } from './modules/reports/reports.module';
+import { SystemSettingsModule } from './modules/system-settings/system-settings.module';
 
 @Module({
   imports: [
@@ -37,6 +40,9 @@ import { AuditModule } from './modules/audit/audit.module';
     CompaniesModule,
     CustomersModule,
     FinancialTransactionsModule,
+    DashboardModule,
+    ReportsModule,
+    SystemSettingsModule,
   ],
 })
 export class AppModule {}
