@@ -205,6 +205,12 @@ function AddCustomerForm({
     primaryPhoneNumber: '',
     email: '',
     city: '',
+    birthDate: '',
+    sex: 1,
+    citizen: 'أردني',
+    hearAboutUs: 'إعلان',
+    isSocialSecurity: 0,
+    doHaveAnyProperty: 0,
   });
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState('');
@@ -223,6 +229,9 @@ function AddCustomerForm({
     }
   };
 
+  const inputClass =
+    'w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500';
+
   return (
     <div className="bg-white rounded-xl border p-6 mb-4">
       <h2 className="text-lg font-semibold mb-4">إضافة عميل جديد</h2>
@@ -231,7 +240,7 @@ function AddCustomerForm({
           {error}
         </div>
       )}
-      <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">
             الاسم الكامل *
@@ -241,7 +250,7 @@ function AddCustomerForm({
             required
             value={form.name}
             onChange={(e) => setForm({ ...form, name: e.target.value })}
-            className="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-emerald-500"
+            className={inputClass}
           />
         </div>
         <div>
@@ -253,20 +262,84 @@ function AddCustomerForm({
             required
             value={form.idNumber}
             onChange={(e) => setForm({ ...form, idNumber: e.target.value })}
-            className="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-emerald-500"
+            className={inputClass}
           />
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">
-            رقم الهاتف
+            رقم الهاتف *
           </label>
           <input
             type="text"
+            required
             value={form.primaryPhoneNumber}
             onChange={(e) =>
               setForm({ ...form, primaryPhoneNumber: e.target.value })
             }
-            className="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-emerald-500"
+            className={inputClass}
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            تاريخ الميلاد *
+          </label>
+          <input
+            type="date"
+            required
+            value={form.birthDate}
+            onChange={(e) => setForm({ ...form, birthDate: e.target.value })}
+            className={inputClass}
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            الجنس *
+          </label>
+          <select
+            value={form.sex}
+            onChange={(e) => setForm({ ...form, sex: Number(e.target.value) })}
+            className={inputClass}
+          >
+            <option value={1}>ذكر</option>
+            <option value={2}>أنثى</option>
+          </select>
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            المدينة *
+          </label>
+          <input
+            type="text"
+            required
+            value={form.city}
+            onChange={(e) => setForm({ ...form, city: e.target.value })}
+            className={inputClass}
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            الجنسية *
+          </label>
+          <input
+            type="text"
+            required
+            value={form.citizen}
+            onChange={(e) => setForm({ ...form, citizen: e.target.value })}
+            className={inputClass}
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            كيف سمعت عنا *
+          </label>
+          <input
+            type="text"
+            required
+            value={form.hearAboutUs}
+            onChange={(e) =>
+              setForm({ ...form, hearAboutUs: e.target.value })
+            }
+            className={inputClass}
           />
         </div>
         <div>
@@ -277,19 +350,41 @@ function AddCustomerForm({
             type="email"
             value={form.email}
             onChange={(e) => setForm({ ...form, email: e.target.value })}
-            className="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-emerald-500"
+            className={inputClass}
           />
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">
-            المدينة
+            ضمان اجتماعي
           </label>
-          <input
-            type="text"
-            value={form.city}
-            onChange={(e) => setForm({ ...form, city: e.target.value })}
-            className="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-emerald-500"
-          />
+          <select
+            value={form.isSocialSecurity}
+            onChange={(e) =>
+              setForm({ ...form, isSocialSecurity: Number(e.target.value) })
+            }
+            className={inputClass}
+          >
+            <option value={0}>لا</option>
+            <option value={1}>نعم</option>
+          </select>
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            يملك عقار
+          </label>
+          <select
+            value={form.doHaveAnyProperty}
+            onChange={(e) =>
+              setForm({
+                ...form,
+                doHaveAnyProperty: Number(e.target.value),
+              })
+            }
+            className={inputClass}
+          >
+            <option value={0}>لا</option>
+            <option value={1}>نعم</option>
+          </select>
         </div>
         <div className="flex items-end gap-2">
           <button
