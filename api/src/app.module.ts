@@ -13,6 +13,9 @@ import { AuditModule } from './modules/audit/audit.module';
 import { DashboardModule } from './modules/dashboard/dashboard.module';
 import { ReportsModule } from './modules/reports/reports.module';
 import { SystemSettingsModule } from './modules/system-settings/system-settings.module';
+import { ContractsModule } from './modules/contracts/contracts.module';
+import { FollowUpModule } from './modules/follow-up/follow-up.module';
+import { JudiciaryModule } from './modules/judiciary/judiciary.module';
 
 @Module({
   imports: [
@@ -43,6 +46,9 @@ import { SystemSettingsModule } from './modules/system-settings/system-settings.
     DashboardModule,
     ReportsModule,
     SystemSettingsModule,
+    ContractsModule,
+    FollowUpModule,
+    JudiciaryModule,
   ],
 })
 export class AppModule {}
