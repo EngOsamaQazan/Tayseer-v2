@@ -6,6 +6,9 @@ import { UsersModule } from './modules/users/users.module';
 import { TenantsModule } from './modules/tenants/tenants.module';
 import { CompaniesModule } from './modules/companies/companies.module';
 import { CustomersModule } from './modules/customers/customers.module';
+import { ContractsModule } from './modules/contracts/contracts.module';
+import { IncomeModule } from './modules/income/income.module';
+import { FinancialTransactionsModule } from './modules/financial-transactions/financial-transactions.module';
 
 @Module({
   imports: [
@@ -29,6 +32,9 @@ import { CustomersModule } from './modules/customers/customers.module';
     UsersModule,
     CompaniesModule,
     CustomersModule,
+    ContractsModule,
+    IncomeModule,
+    FinancialTransactionsModule,
   ],
 })
 export class AppModule {}
