@@ -22,7 +22,7 @@ SaaS Multi-Tenant (Single DB, shared schema, tenant_id column on EVERY table)
 
 ## Current State
 
-### ✅ Completed Modules (11 modules, ~45 endpoints):
+### ✅ Completed Modules (15 modules, ~100+ endpoints):
 
 | # | Module | Table(s) | Endpoints | Description |
 |---|--------|----------|-----------|-------------|
@@ -37,6 +37,10 @@ SaaS Multi-Tenant (Single DB, shared schema, tenant_id column on EVERY table)
 | 9 | **Audit** | `audit_logs` | 3 | 🆕 سجل العمليات المركزي |
 | 10 | **Contracts** | `contracts`, `contract_items`, `contract_installments`, `contract_parties` | ~6 | العقود (⚠️ بُني في جلسة سابقة على Tayseer-v2 مباشرة، قد يحتاج تحديث ليتوافق مع lookups و financial_transactions الجديد) |
 | 11 | **Income** | - | ~5 | الدفعات (⚠️ بُني في جلسة سابقة، يجب حذفه ودمجه في financial_transactions) |
+| 12 | **HR** | `employees`, `attendance`, `payroll_runs`, `leave_requests`, `field_sessions` | ~30 | 🆕 الموارد البشرية: موظفون + حضور + رواتب + إجازات + جلسات ميدانية |
+| 13 | **Inventory** | `inventory_items`, `inventory_movements`, `suppliers`, `purchase_orders` | ~20 | 🆕 المخزون: أصناف + حركات + موردون + أوامر شراء |
+| 14 | **Notifications** | `notifications` | 7 | 🆕 الإشعارات: إرسال + bulk + قراءة + حذف |
+| 15 | **SMS** | `sms_messages` | 7 | 🆕 الرسائل النصية: إرسال + bulk + إعادة إرسال + إحصائيات |
 
 ### ⚠️ تنبيهات مهمة للجلسة القادمة:
 
@@ -55,10 +59,10 @@ SaaS Multi-Tenant (Single DB, shared schema, tenant_id column on EVERY table)
 | 3 | **Courts** | المحاكم | `courts` |
 | 4 | **Lawyers** | المحامون | `lawyers` |
 | 5 | **Collection** | التحصيل | `collections`, `collection_installments` |
-| 6 | **HR** | الموارد البشرية | `employees`, `attendance`, `payroll_runs`, `leave_requests`, `field_sessions` |
-| 7 | **Inventory** | المخزون | `inventory_items`, `inventory_movements`, `suppliers`, `purchase_orders` |
-| 8 | **Notifications** | الإشعارات | `notifications` |
-| 9 | **SMS** | الرسائل | `sms_messages` |
+| ~~6~~ | ~~**HR**~~ | ~~الموارد البشرية~~ | ✅ مبني |
+| ~~7~~ | ~~**Inventory**~~ | ~~المخزون~~ | ✅ مبني |
+| ~~8~~ | ~~**Notifications**~~ | ~~الإشعارات~~ | ✅ مبني |
+| ~~9~~ | ~~**SMS**~~ | ~~الرسائل~~ | ✅ مبني |
 | 10 | **Reports** | التقارير | لا جداول (queries على الجداول الموجودة) |
 | 11 | **Dashboard** | لوحة التحكم | لا جداول (aggregation queries) |
 | 12 | **System Settings** | إعدادات النظام | `system_settings` |
