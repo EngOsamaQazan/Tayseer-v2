@@ -2,11 +2,21 @@ import {
   Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn,
   OneToMany, ManyToOne, JoinColumn, Index,
 } from 'typeorm';
+import { Tenant } from '../../tenants/entities/tenant.entity';
 
 @Entity('customers')
+@Index(['tenantId', 'idNumber'], { unique: true })
 export class Customer {
   @PrimaryGeneratedColumn()
   id: number;
+
+  @Column({ type: 'uuid' })
+  @Index()
+  tenantId: string;
+
+  @ManyToOne(() => Tenant)
+  @JoinColumn({ name: 'tenantId' })
+  tenant: Tenant;
 
   @Column({ length: 255 })
   @Index()
@@ -22,7 +32,6 @@ export class Customer {
   jobTitle: number;
 
   @Column({ nullable: true, length: 50 })
-  @Index()
   idNumber: string;
 
   @Column({ type: 'date', nullable: true })
@@ -105,7 +114,6 @@ export class Customer {
   updatedAt: Date;
 
   @Column({ default: false })
-  @Index()
   isDeleted: boolean;
 
   @OneToMany(() => CustomerAddress, (addr) => addr.customer, { cascade: true })
@@ -119,6 +127,10 @@ export class Customer {
 export class CustomerAddress {
   @PrimaryGeneratedColumn()
   id: number;
+
+  @Column({ type: 'uuid' })
+  @Index()
+  tenantId: string;
 
   @Column()
   customerId: number;
@@ -159,6 +171,10 @@ export class CustomerAddress {
 export class CustomerPhone {
   @PrimaryGeneratedColumn()
   id: number;
+
+  @Column({ type: 'uuid' })
+  @Index()
+  tenantId: string;
 
   @Column()
   customerId: number;

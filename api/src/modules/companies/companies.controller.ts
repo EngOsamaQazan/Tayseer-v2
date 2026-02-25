@@ -14,38 +14,32 @@ export class CompaniesController {
   @Post()
   @ApiOperation({ summary: 'إضافة مستثمر جديد' })
   create(@Body() dto: CreateCompanyDto, @Request() req: any) {
-    return this.companiesService.create(dto, req.user.id);
+    return this.companiesService.create(dto, req.user.tenantId, req.user.id);
   }
 
   @Get()
   @ApiOperation({ summary: 'قائمة المستثمرين' })
   @ApiQuery({ name: 'page', required: false })
   @ApiQuery({ name: 'limit', required: false })
-  findAll(@Query('page') page = 1, @Query('limit') limit = 20) {
-    return this.companiesService.findAll(+page, +limit);
-  }
-
-  @Get('primary')
-  @ApiOperation({ summary: 'الشركة الرئيسية' })
-  getPrimary() {
-    return this.companiesService.getPrimaryCompany();
+  findAll(@Query('page') page = 1, @Query('limit') limit = 20, @Request() req: any) {
+    return this.companiesService.findAll(req.user.tenantId, +page, +limit);
   }
 
   @Get(':id')
   @ApiOperation({ summary: 'عرض مستثمر' })
-  findOne(@Param('id', ParseIntPipe) id: number) {
-    return this.companiesService.findOne(id);
+  findOne(@Param('id', ParseIntPipe) id: number, @Request() req: any) {
+    return this.companiesService.findOne(id, req.user.tenantId);
   }
 
   @Put(':id')
   @ApiOperation({ summary: 'تعديل مستثمر' })
-  update(@Param('id', ParseIntPipe) id: number, @Body() dto: Partial<CreateCompanyDto>) {
-    return this.companiesService.update(id, dto);
+  update(@Param('id', ParseIntPipe) id: number, @Body() dto: Partial<CreateCompanyDto>, @Request() req: any) {
+    return this.companiesService.update(id, dto, req.user.tenantId);
   }
 
   @Delete(':id')
   @ApiOperation({ summary: 'حذف مستثمر' })
-  remove(@Param('id', ParseIntPipe) id: number) {
-    return this.companiesService.softDelete(id);
+  remove(@Param('id', ParseIntPipe) id: number, @Request() req: any) {
+    return this.companiesService.softDelete(id, req.user.tenantId);
   }
 }

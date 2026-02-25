@@ -13,14 +13,20 @@ export class CompaniesService {
     private readonly bankRepo: Repository<CompanyBank>,
   ) {}
 
-  async create(dto: CreateCompanyDto, userId: number): Promise<Company> {
-    const company = this.companyRepo.create({ ...dto, createdBy: userId });
+  async create(dto: CreateCompanyDto, tenantId: string, userId: number): Promise<Company> {
+    const { bankAccounts, ...companyData } = dto;
+    const company = this.companyRepo.create({
+      ...companyData,
+      tenantId,
+      createdBy: userId,
+      bankAccounts: bankAccounts?.map((b) => ({ ...b, tenantId })),
+    });
     return this.companyRepo.save(company);
   }
 
-  async findAll(page = 1, limit = 20): Promise<{ data: Company[]; total: number }> {
+  async findAll(tenantId: string, page = 1, limit = 20): Promise<{ data: Company[]; total: number }> {
     const [data, total] = await this.companyRepo.findAndCount({
-      where: { isDeleted: false },
+      where: { tenantId, isDeleted: false },
       relations: ['bankAccounts'],
       skip: (page - 1) * limit,
       take: limit,
@@ -29,32 +35,24 @@ export class CompaniesService {
     return { data, total };
   }
 
-  async findOne(id: number): Promise<Company> {
+  async findOne(id: number, tenantId: string): Promise<Company> {
     const company = await this.companyRepo.findOne({
-      where: { id, isDeleted: false },
+      where: { id, tenantId, isDeleted: false },
       relations: ['bankAccounts'],
     });
     if (!company) throw new NotFoundException('المستثمر غير موجود');
     return company;
   }
 
-  async update(id: number, dto: Partial<CreateCompanyDto>): Promise<Company> {
-    const company = await this.findOne(id);
+  async update(id: number, dto: Partial<CreateCompanyDto>, tenantId: string): Promise<Company> {
+    const company = await this.findOne(id, tenantId);
     Object.assign(company, dto);
     return this.companyRepo.save(company);
   }
 
-  async softDelete(id: number): Promise<void> {
-    const company = await this.findOne(id);
+  async softDelete(id: number, tenantId: string): Promise<void> {
+    const company = await this.findOne(id, tenantId);
     company.isDeleted = true;
     await this.companyRepo.save(company);
-    await this.bankRepo.update({ companyId: id }, { isDeleted: true });
-  }
-
-  async getPrimaryCompany(): Promise<Company | null> {
-    return this.companyRepo.findOne({
-      where: { isPrimaryCompany: true, isDeleted: false },
-      relations: ['bankAccounts'],
-    });
   }
 }

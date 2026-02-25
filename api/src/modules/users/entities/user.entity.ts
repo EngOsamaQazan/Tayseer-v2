@@ -1,28 +1,30 @@
 import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  CreateDateColumn,
-  UpdateDateColumn,
-  OneToMany,
-  ManyToOne,
-  JoinColumn,
-  Index,
+  Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn,
+  ManyToOne, JoinColumn, Index,
 } from 'typeorm';
 import { Exclude } from 'class-transformer';
 import { Role } from '../../../common/enums/role.enum';
+import { Tenant } from '../../tenants/entities/tenant.entity';
 
 @Entity('users')
+@Index(['tenantId', 'email'], { unique: true })
+@Index(['tenantId', 'username'], { unique: true })
 export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ unique: true })
+  @Column({ type: 'uuid' })
   @Index()
+  tenantId: string;
+
+  @ManyToOne(() => Tenant)
+  @JoinColumn({ name: 'tenantId' })
+  tenant: Tenant;
+
+  @Column()
   username: string;
 
-  @Column({ unique: true })
-  @Index()
+  @Column()
   email: string;
 
   @Column()

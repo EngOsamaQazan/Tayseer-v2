@@ -2,11 +2,20 @@ import {
   Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn,
   OneToMany, ManyToOne, JoinColumn, Index,
 } from 'typeorm';
+import { Tenant } from '../../tenants/entities/tenant.entity';
 
 @Entity('companies')
 export class Company {
   @PrimaryGeneratedColumn()
   id: number;
+
+  @Column({ type: 'uuid' })
+  @Index()
+  tenantId: string;
+
+  @ManyToOne(() => Tenant)
+  @JoinColumn({ name: 'tenantId' })
+  tenant: Tenant;
 
   @Column({ length: 100 })
   @Index()
@@ -83,6 +92,10 @@ export class Company {
 export class CompanyBank {
   @PrimaryGeneratedColumn()
   id: number;
+
+  @Column({ type: 'uuid' })
+  @Index()
+  tenantId: string;
 
   @Column()
   companyId: number;
