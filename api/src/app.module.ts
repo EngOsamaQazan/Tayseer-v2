@@ -10,6 +10,12 @@ import { CompaniesModule } from './modules/companies/companies.module';
 import { CustomersModule } from './modules/customers/customers.module';
 import { FinancialTransactionsModule } from './modules/financial-transactions/financial-transactions.module';
 import { AuditModule } from './modules/audit/audit.module';
+import { ContractsModule } from './modules/contracts/contracts.module';
+import { FollowUpModule } from './modules/follow-up/follow-up.module';
+import { CourtsModule } from './modules/courts/courts.module';
+import { LawyersModule } from './modules/lawyers/lawyers.module';
+import { JudiciaryModule } from './modules/judiciary/judiciary.module';
+import { CollectionModule } from './modules/collection/collection.module';
 
 @Module({
   imports: [
@@ -37,6 +43,12 @@ import { AuditModule } from './modules/audit/audit.module';
     CompaniesModule,
     CustomersModule,
     FinancialTransactionsModule,
+    ContractsModule,
+    FollowUpModule,
+    CourtsModule,
+    LawyersModule,
+    JudiciaryModule,
+    CollectionModule,
   ],
 })
 export class AppModule {}
