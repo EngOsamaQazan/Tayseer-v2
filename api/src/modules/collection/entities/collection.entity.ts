@@ -19,7 +19,6 @@ export class Collection {
   id: number;
 
   @Column({ type: 'uuid' })
-  @Index()
   tenantId: string;
 
   @ManyToOne(() => Tenant)
@@ -82,7 +81,6 @@ export class CollectionInstallment {
   id: number;
 
   @Column({ type: 'uuid' })
-  @Index()
   tenantId: string;
 
   @Column()

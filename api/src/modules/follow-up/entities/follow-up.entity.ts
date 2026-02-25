@@ -13,7 +13,6 @@ export class FollowUp {
   id: number;
 
   @Column({ type: 'uuid' })
-  @Index()
   tenantId: string;
 
   @ManyToOne(() => Tenant)

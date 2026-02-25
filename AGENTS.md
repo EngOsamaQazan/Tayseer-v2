@@ -22,7 +22,7 @@ SaaS Multi-Tenant (Single DB, shared schema, tenant_id column on EVERY table)
 
 ## Current State
 
-### ✅ Completed Modules (11 modules, ~45 endpoints):
+### ✅ Completed Modules (16 modules, ~90 endpoints):
 
 | # | Module | Table(s) | Endpoints | Description |
 |---|--------|----------|-----------|-------------|
@@ -35,35 +35,32 @@ SaaS Multi-Tenant (Single DB, shared schema, tenant_id column on EVERY table)
 | 7 | **Customers** | `customers`, `customer_addresses`, `customer_phones` | 7 | العملاء مع عناوين وهواتف |
 | 8 | **Financial Transactions** | `financial_transactions` | 8 | 🆕 الحركات المالية الموحدة (بديل 3 جداول) |
 | 9 | **Audit** | `audit_logs` | 3 | 🆕 سجل العمليات المركزي |
-| 10 | **Contracts** | `contracts`, `contract_items`, `contract_installments`, `contract_parties` | ~6 | العقود (⚠️ بُني في جلسة سابقة على Tayseer-v2 مباشرة، قد يحتاج تحديث ليتوافق مع lookups و financial_transactions الجديد) |
-| 11 | **Income** | - | ~5 | الدفعات (⚠️ بُني في جلسة سابقة، يجب حذفه ودمجه في financial_transactions) |
+| 10 | **Contracts** | `contracts`, `contract_items`, `contract_installments`, `contract_parties` | 8 | 🆕 العقود مع أطراف وبنود وأقساط تلقائية، يستخدم lookups و financial_transactions |
+| 11 | **Follow-Up** | `follow_ups` | 8 | 🆕 المتابعة مع تذكيرات ووعود بالدفع، يستخدم lookups (feeling, connection_response) |
+| 12 | **Courts** | `courts` | 5 | 🆕 المحاكم مع ربط المدينة من lookups |
+| 13 | **Lawyers** | `lawyers` | 5 | 🆕 المحامون |
+| 14 | **Judiciary** | `judiciary_cases`, `judiciary_actions` | 10 | 🆕 القضايا والإجراءات القضائية، مربوط بالعقود والمحاكم والمحامين |
+| 15 | **Collection** | `collections`, `collection_installments` | 8 | 🆕 التحصيل مع أقساط شهرية، مربوط بالعقود والقضايا |
 
-### ⚠️ تنبيهات مهمة للجلسة القادمة:
+### ✅ تم حل التنبيهات السابقة:
 
-1. **موديول Income يجب حذفه** - الدفعات مدمجة الآن في `financial_transactions` بـ `type='income'`. لا حاجة لموديول منفصل.
-2. **موديول Contracts يحتاج تحديث** - لأنه بُني قبل إعادة الهيكلة:
-   - يجب أن يستخدم `lookups` للحقول المرجعية بدل القيم المباشرة
-   - يجب أن يربط الدفعات مع `financial_transactions` بدل `income`
-3. **موديول Financial Transactions بُني مرتين** - مرة في جلسة سابقة ومرة في إعادة الهيكلة. النسخة الجديدة (الموحدة مع income/expense/transfer/bank_import) هي الصحيحة.
+1. **~~موديول Income~~** - لم يكن موجوداً كرمز منفصل. الدفعات مدمجة في `financial_transactions` بـ `type='income'`.
+2. **~~موديول Contracts يحتاج تحديث~~** - تم بناؤه من جديد ليستخدم `lookups` للحقول المرجعية و `financial_transactions` للدفعات.
+3. **موديول Financial Transactions** - النسخة الموحدة (income/expense/transfer/bank_import) هي المعتمدة.
 
 ### ❌ لم يُبنى بعد (بالترتيب المطلوب):
 
 | الأولوية | Module | الوصف | الجداول المقترحة |
 |----------|--------|-------|-----------------|
-| 1 | **Follow-Up** | المتابعة | `follow_ups` |
-| 2 | **Judiciary** | القضايا | `judiciary_cases`, `judiciary_actions` |
-| 3 | **Courts** | المحاكم | `courts` |
-| 4 | **Lawyers** | المحامون | `lawyers` |
-| 5 | **Collection** | التحصيل | `collections`, `collection_installments` |
-| 6 | **HR** | الموارد البشرية | `employees`, `attendance`, `payroll_runs`, `leave_requests`, `field_sessions` |
-| 7 | **Inventory** | المخزون | `inventory_items`, `inventory_movements`, `suppliers`, `purchase_orders` |
-| 8 | **Notifications** | الإشعارات | `notifications` |
-| 9 | **SMS** | الرسائل | `sms_messages` |
-| 10 | **Reports** | التقارير | لا جداول (queries على الجداول الموجودة) |
-| 11 | **Dashboard** | لوحة التحكم | لا جداول (aggregation queries) |
-| 12 | **System Settings** | إعدادات النظام | `system_settings` |
-| 13 | **Jobs** | أماكن العمل | `jobs` |
-| 14 | **Next.js Frontend** | الواجهة الأمامية | - |
+| 1 | **HR** | الموارد البشرية | `employees`, `attendance`, `payroll_runs`, `leave_requests`, `field_sessions` |
+| 2 | **Inventory** | المخزون | `inventory_items`, `inventory_movements`, `suppliers`, `purchase_orders` |
+| 3 | **Notifications** | الإشعارات | `notifications` |
+| 4 | **SMS** | الرسائل | `sms_messages` |
+| 5 | **Reports** | التقارير | لا جداول (queries على الجداول الموجودة) |
+| 6 | **Dashboard** | لوحة التحكم | لا جداول (aggregation queries) |
+| 7 | **System Settings** | إعدادات النظام | `system_settings` |
+| 8 | **Jobs** | أماكن العمل | `jobs` |
+| 9 | **Next.js Frontend** | الواجهة الأمامية | - |
 
 ## Database Design (Restructured)
 

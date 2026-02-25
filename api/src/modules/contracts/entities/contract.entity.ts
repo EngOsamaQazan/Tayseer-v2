@@ -29,7 +29,6 @@ export class Contract {
   id: number;
 
   @Column({ type: 'uuid' })
-  @Index()
   tenantId: string;
 
   @ManyToOne(() => Tenant)
@@ -118,7 +117,6 @@ export class ContractParty {
   id: number;
 
   @Column({ type: 'uuid' })
-  @Index()
   tenantId: string;
 
   @Column()
@@ -151,7 +149,6 @@ export class ContractItem {
   id: number;
 
   @Column({ type: 'uuid' })
-  @Index()
   tenantId: string;
 
   @Column()
@@ -202,7 +199,6 @@ export class ContractInstallment {
   id: number;
 
   @Column({ type: 'uuid' })
-  @Index()
   tenantId: string;
 
   @Column()

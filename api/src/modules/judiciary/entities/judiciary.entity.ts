@@ -25,7 +25,6 @@ export class JudiciaryCase {
   id: number;
 
   @Column({ type: 'uuid' })
-  @Index()
   tenantId: string;
 
   @ManyToOne(() => Tenant)
@@ -103,7 +102,6 @@ export class JudiciaryAction {
   id: number;
 
   @Column({ type: 'uuid' })
-  @Index()
   tenantId: string;
 
   @Column()

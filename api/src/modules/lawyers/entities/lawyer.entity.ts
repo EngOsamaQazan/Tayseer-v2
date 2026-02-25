@@ -5,7 +5,6 @@ import {
 import { Tenant } from '../../tenants/entities/tenant.entity';
 
 @Entity('lawyers')
-@Index(['tenantId'])
 export class Lawyer {
   @PrimaryGeneratedColumn()
   id: number;
