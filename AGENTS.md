@@ -37,6 +37,10 @@ SaaS Multi-Tenant (Single DB, shared schema, tenant_id column on EVERY table)
 | 9 | **Audit** | `audit_logs` | 3 | 🆕 سجل العمليات المركزي |
 | 10 | **Contracts** | `contracts`, `contract_items`, `contract_installments`, `contract_parties` | ~6 | العقود (⚠️ بُني في جلسة سابقة على Tayseer-v2 مباشرة، قد يحتاج تحديث ليتوافق مع lookups و financial_transactions الجديد) |
 | 11 | **Income** | - | ~5 | الدفعات (⚠️ بُني في جلسة سابقة، يجب حذفه ودمجه في financial_transactions) |
+| 12 | **Dashboard** | - | 3 | 🆕 لوحة التحكم (aggregation queries) |
+| 13 | **Reports** | - | 4 | 🆕 التقارير المالية وتقارير العملاء والعمليات |
+| 14 | **System Settings** | `system_settings` | 7 | 🆕 إعدادات النظام مع seed لـ 14 إعداد افتراضي |
+| 15 | **Next.js Frontend** | - | - | 🆕 واجهة أمامية: تسجيل دخول + لوحة تحكم + عملاء |
 
 ### ⚠️ تنبيهات مهمة للجلسة القادمة:
 
@@ -59,11 +63,7 @@ SaaS Multi-Tenant (Single DB, shared schema, tenant_id column on EVERY table)
 | 7 | **Inventory** | المخزون | `inventory_items`, `inventory_movements`, `suppliers`, `purchase_orders` |
 | 8 | **Notifications** | الإشعارات | `notifications` |
 | 9 | **SMS** | الرسائل | `sms_messages` |
-| 10 | **Reports** | التقارير | لا جداول (queries على الجداول الموجودة) |
-| 11 | **Dashboard** | لوحة التحكم | لا جداول (aggregation queries) |
-| 12 | **System Settings** | إعدادات النظام | `system_settings` |
-| 13 | **Jobs** | أماكن العمل | `jobs` |
-| 14 | **Next.js Frontend** | الواجهة الأمامية | - |
+| 10 | **Jobs** | أماكن العمل | `jobs` |
 
 ## Database Design (Restructured)
 
@@ -151,6 +151,13 @@ curl -X POST http://localhost:3000/api/v1/auth/login -H "Content-Type: applicati
 # Seed lookups (after login, use token)
 curl -X POST http://localhost:3000/api/v1/lookups/seed -H "Authorization: Bearer TOKEN"
 curl -X POST http://localhost:3000/api/v1/categories/seed -H "Authorization: Bearer TOKEN"
+```
+
+### Running the Frontend
+```bash
+cd web
+pnpm install
+pnpm run dev    # Runs on port 3001, proxies /api to backend on port 3000
 ```
 
 ### Gotchas
