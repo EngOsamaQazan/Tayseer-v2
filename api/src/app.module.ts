@@ -10,6 +10,10 @@ import { CompaniesModule } from './modules/companies/companies.module';
 import { CustomersModule } from './modules/customers/customers.module';
 import { FinancialTransactionsModule } from './modules/financial-transactions/financial-transactions.module';
 import { AuditModule } from './modules/audit/audit.module';
+import { HrModule } from './modules/hr/hr.module';
+import { InventoryModule } from './modules/inventory/inventory.module';
+import { NotificationsModule } from './modules/notifications/notifications.module';
+import { SmsModule } from './modules/sms/sms.module';
 
 @Module({
   imports: [
@@ -37,6 +41,10 @@ import { AuditModule } from './modules/audit/audit.module';
     CompaniesModule,
     CustomersModule,
     FinancialTransactionsModule,
+    HrModule,
+    InventoryModule,
+    NotificationsModule,
+    SmsModule,
   ],
 })
 export class AppModule {}
