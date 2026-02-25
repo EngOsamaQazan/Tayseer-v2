@@ -1,5 +1,5 @@
 'use client';
 import AuthLayout from '@/components/AuthLayout';
-export default function DashboardLayout({ children }: { children: React.ReactNode }) {
+export default function CasesLayout({ children }: { children: React.ReactNode }) {
   return <AuthLayout>{children}</AuthLayout>;
 }
