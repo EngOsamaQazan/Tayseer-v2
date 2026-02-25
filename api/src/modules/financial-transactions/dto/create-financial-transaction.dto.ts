@@ -82,21 +82,24 @@ export class QueryTransactionsDto {
 
   @ApiProperty({ required: false })
   @IsOptional()
-  @IsNumber()
   contractId?: number;
 
   @ApiProperty({ required: false })
   @IsOptional()
-  @IsNumber()
   companyId?: number;
 
   @ApiProperty({ required: false })
   @IsOptional()
-  @IsNumber()
   categoryId?: number;
 
   @ApiProperty({ required: false, enum: TransactionStatus })
   @IsOptional()
   @IsEnum(TransactionStatus)
   status?: TransactionStatus;
+
+  @IsOptional()
+  page?: any;
+
+  @IsOptional()
+  limit?: any;
 }
