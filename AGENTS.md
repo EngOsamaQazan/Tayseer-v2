@@ -162,6 +162,14 @@ curl -X POST http://localhost:3000/api/v1/categories/seed -H "Authorization: Bea
 6. Use `lookups` table for reference data instead of creating new tables
 7. Use `financial_transactions` for any money movement instead of separate tables
 
+### Non-obvious caveats
+
+- **PostgreSQL 16 must be installed** via `sudo apt-get install -y postgresql-16` on fresh VMs (not pre-installed).
+- **Lint script** in `package.json` uses `{src,apps,libs,test}/**/*.ts` glob which ESLint v9 does not expand. Run `npx eslint "src/**/*.ts"` directly, or `pnpm run lint` will fail with "No files matching" (not a code bug, just a shell/ESLint v9 glob issue).
+- **E2e test** (`test/app.e2e-spec.ts`) is the default NestJS scaffold test expecting `GET / → 200`. It fails because the app uses `/api/v1/` global prefix. This is a pre-existing issue.
+- **`pnpm install` shows "Ignored build scripts" warning** for `@nestjs/core`, `@scarf/scarf`, `unrs-resolver`. This is safe to ignore and does not affect functionality.
+- **TypeORM `synchronize: true`** is enabled in development, so tables are auto-created on startup. No manual migrations needed.
+
 ## Reference Documents
 
 | File | Content |
