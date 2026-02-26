@@ -16,6 +16,9 @@ import { SystemSettingsModule } from './modules/system-settings/system-settings.
 import { ContractsModule } from './modules/contracts/contracts.module';
 import { FollowUpModule } from './modules/follow-up/follow-up.module';
 import { JudiciaryModule } from './modules/judiciary/judiciary.module';
+import { CollectionsModule } from './modules/collections/collections.module';
+import { HrModule } from './modules/hr/hr.module';
+import { InventoryModule } from './modules/inventory/inventory.module';
 
 @Module({
   imports: [
@@ -49,6 +52,9 @@ import { JudiciaryModule } from './modules/judiciary/judiciary.module';
     ContractsModule,
     FollowUpModule,
     JudiciaryModule,
+    CollectionsModule,
+    HrModule,
+    InventoryModule,
   ],
 })
 export class AppModule {}
